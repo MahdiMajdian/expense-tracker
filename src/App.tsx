@@ -1,10 +1,7 @@
 import React from "react"
+import Routes from "./Routes"
 
 const App = () => {
-	return (
-			<div className="text-2xl font font-medium">
-				Hello World
-			</div>
-	)
+	return <Routes />
 }
 export default App
