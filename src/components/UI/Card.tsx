@@ -4,7 +4,7 @@ interface ICardProps {
 }
 const Card: React.FC<ICardProps> = (props) => {
 	const { className, children } = props
-	return <div className={`rounded-md p-4 shadow-md hover:shadow-lg m-4 ${className}`}>{children}</div>
+	return <div className={`rounded-md shadow-md hover:shadow-lg ${className}`}>{children}</div>
 }
 
 export default Card
