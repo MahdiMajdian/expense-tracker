@@ -2,15 +2,17 @@ import { createSlice } from "@reduxjs/toolkit"
 import { IWallet } from "../types"
 
 const initialState: IWallet = {
+	initialBalance: 0,
 	walletBalance: 0,
+	items: [],
 }
 
 const walletSlice = createSlice({
 	name: "wallet",
 	initialState,
 	reducers: {
-		addProduct() {
-			alert('hey')
+		addProduct(state , payload) {
+			console.log(payload)
 		},
 	},
 })

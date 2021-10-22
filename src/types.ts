@@ -1,4 +1,12 @@
-
+export interface IItem {
+	id: number
+	type: "Expense" | "Income"
+	amount: number
+	note: string
+	date: number
+}
 export interface IWallet {
-	walletBalance : number;
+	initialBalance: number
+	walletBalance: number
+	items: IItem[]
 }
