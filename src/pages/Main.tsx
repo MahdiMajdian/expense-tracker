@@ -1,9 +1,10 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import Header from "../components/Header/Header"
 import Button from "../components/UI/Button"
 import { useAppSelector } from "../hooks"
 
-const Wallet = () => {
+const Main = () => {
 	const balance = useAppSelector((state) => state.wallet.walletBalance)
 
 	return (
@@ -15,12 +16,9 @@ const Wallet = () => {
 					currencyType="USD"
 					total={balance}
 				/>
-				<div className="mt-8 w-full flex justify-end">
-					<Button className="">+ Add Transaction</Button>
-				</div>
 			</div>
 		</div>
 	)
 }
 
-export default Wallet
+export default Main

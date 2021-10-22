@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "react-router"
-import NewTransaction from "./pages/NewTransaction"
-import Wallet from "./pages/Wallet"
+import Transaction from "./pages/Transaction"
+import Main from "./pages/Main"
+import NotFound from "./pages/NotFound"
 
 const Routes = () => {
 	return (
@@ -8,11 +9,11 @@ const Routes = () => {
 			<Route path="/" exact>
 				<Redirect to="/wallet" />
 			</Route>
-			<Route path="/wallet/:id">
-				<NewTransaction />
-			</Route>
 			<Route path="/wallet">
-				<Wallet />
+				<Main />
+			</Route>
+			<Route path="*">
+				<NotFound />
 			</Route>
 		</Switch>
 	)
