@@ -24,7 +24,7 @@ const Wallet = () => {
 					</Button>
 				</Link>
 			</div>
-			{!walletItems.length && "No Transactions"}
+			{!walletItems.length && <p className='text-center font-medium text-2xl mt-8'>No Transactions</p>}
 			{walletItems.map((item) => (
 				<TransactionItem
 					key={item.id}

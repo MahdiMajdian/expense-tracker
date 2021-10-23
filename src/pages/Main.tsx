@@ -7,7 +7,11 @@ import { BiArrowBack } from "react-icons/bi"
 import Wallet from "./Wallet"
 
 const Main = () => {
-	const balance = useAppSelector((state) => state.wallet.walletBalance)
+	const balance = useAppSelector((state) => state.wallet.items).reduce(
+		(sum, val) =>
+			val.category === "expense" ? sum - val.amount : sum + val.amount,
+		0
+	)
 	const initialBalance = useAppSelector(
 		(state) => state.wallet.initialBalance
 	)
