@@ -82,7 +82,9 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 					</select>
 				</Card>
 				<div className="mt-8 flex justify-between">
-					<Button className="bg-gray-200 hover:bg-gray-300 text-gray-800">
+					<Button
+						onClick={() => history.push("/wallet")}
+						className="bg-gray-200 hover:bg-gray-300 text-gray-800">
 						Cancel
 					</Button>
 					<div className="flex gap-4">
