@@ -1,9 +1,9 @@
 export interface IItem {
 	id: number
-	type: "Expense" | "Income"
 	amount: number
 	note: string
 	date: number
+	category: "expense" | "income"
 }
 export interface IWallet {
 	initialBalance: number

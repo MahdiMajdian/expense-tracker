@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { IWallet } from "../types"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { IItem, IWallet } from "../types"
 
 const initialState: IWallet = {
 	initialBalance: 0,
@@ -11,8 +11,8 @@ const walletSlice = createSlice({
 	name: "wallet",
 	initialState,
 	reducers: {
-		addProduct(state , payload) {
-			console.log(payload)
+		addTransaction(state , action:PayloadAction<IItem>) {
+			state.items.push(action.payload)
 		},
 	},
 })
