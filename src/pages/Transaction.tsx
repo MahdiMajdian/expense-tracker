@@ -59,6 +59,10 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 			setErrorMessage("Please fill the required fields")
 		}
 	}
+	const deleteHandler = () => {
+		dispatch(walletActions.deleteTransaction(+params.id))
+		history.push("/wallet")
+	}
 
 	return (
 		<div>
@@ -69,7 +73,7 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 					</label>
 					<input
 						value={amount}
-						placeholder='0'
+						placeholder="0"
 						onChange={(e) => setAmount(+e.target.value)}
 						type="number"
 						step="0.01"
@@ -126,7 +130,9 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 					</Button>
 					<div className="flex gap-4">
 						{type === "edit" && (
-							<Button className="bg-gray-200 hover:bg-gray-300 text-gray-800">
+							<Button
+								onClick={deleteHandler}
+								className="bg-gray-200 hover:bg-gray-300 text-gray-800">
 								Delete
 							</Button>
 						)}

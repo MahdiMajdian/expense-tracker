@@ -5,7 +5,7 @@ interface IButtonProps {
 	onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 const Button: React.FC<IButtonProps> = (props) => {
-	const { children, className, type="button"} = props
+	const { children, className, type = "button" } = props
 	return (
 		<button
 			onClick={props.onClick}

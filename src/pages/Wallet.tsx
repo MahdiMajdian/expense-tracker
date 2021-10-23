@@ -11,8 +11,8 @@ const Wallet = () => {
 	const dispatch = useAppDispatch()
 	const history = useHistory()
 	const location = useLocation()
-	const editHandler = (id : number) => {
-		history.push(location.pathname + '/' + id)
+	const editHandler = (id: number) => {
+		history.push(location.pathname + "/" + id)
 	}
 	const walletItems = useAppSelector((state) => state.wallet.items)
 	return (
@@ -26,7 +26,11 @@ const Wallet = () => {
 			</div>
 			{!walletItems.length && "No Transactions"}
 			{walletItems.map((item) => (
-				<TransactionItem key={item.id} {...item} onClick={() => editHandler(item.id)}/>
+				<TransactionItem
+					key={item.id}
+					{...item}
+					onClick={() => editHandler(item.id)}
+				/>
 			))}
 		</div>
 	)
