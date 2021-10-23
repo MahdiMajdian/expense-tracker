@@ -11,8 +11,13 @@ const walletSlice = createSlice({
 	name: "wallet",
 	initialState,
 	reducers: {
-		addTransaction(state , action:PayloadAction<IItem>) {
+		addTransaction(state, action: PayloadAction<IItem>) {
 			state.items.push(action.payload)
+		},
+		editTransaction(state, action: PayloadAction<IItem>) {
+			state.items = state.items.map((item) =>
+				item.id === action.payload.id ? action.payload : item
+			)
 		},
 	},
 })

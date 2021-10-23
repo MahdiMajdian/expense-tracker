@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory, useLocation } from "react-router-dom"
 import TransactionItem from "../components/TransactionItem/TransactionItem"
 import Button from "../components/UI/Button"
 import Card from "../components/UI/Card"
@@ -9,6 +9,11 @@ import { walletActions } from "../redux/wallet-slice"
 const Wallet = () => {
 	useAppSelector((state) => state.wallet.items)
 	const dispatch = useAppDispatch()
+	const history = useHistory()
+	const location = useLocation()
+	const editHandler = (id : number) => {
+		history.push(location.pathname + '/' + id)
+	}
 	const walletItems = useAppSelector((state) => state.wallet.items)
 	return (
 		<div className="">
@@ -21,7 +26,7 @@ const Wallet = () => {
 			</div>
 			{!walletItems.length && "No Transactions"}
 			{walletItems.map((item) => (
-				<TransactionItem key={item.id} {...item} />
+				<TransactionItem key={item.id} {...item} onClick={() => editHandler(item.id)}/>
 			))}
 		</div>
 	)

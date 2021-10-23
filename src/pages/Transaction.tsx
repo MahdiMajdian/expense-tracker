@@ -1,6 +1,6 @@
 import { type } from "os"
 import React, { useState } from "react"
-import { useHistory } from "react-router"
+import { useHistory, useParams } from "react-router"
 import Button from "../components/UI/Button"
 import Card from "../components/UI/Card"
 import { useAppDispatch, useAppSelector } from "../hooks"
@@ -10,12 +10,27 @@ interface ITransactionProps {
 }
 const Transaction: React.FC<ITransactionProps> = (props) => {
 	const { type } = props
-	const [amount, setAmount] = useState<number>(0)
-	const [note, setNote] = useState<string>("")
-	const [date, setDate] = useState<string>("")
-	const [category, setCategory] = useState<string>("income")
+	const params = useParams<any>()
+	const transaction = useAppSelector((state) =>
+		state.wallet.items.find((item) => item.id === +params.id)
+	)
+
+	const [amount, setAmount] = useState<number | undefined>(
+		transaction ? transaction.amount : undefined
+	)
+	const [note, setNote] = useState<string>(
+		transaction ? transaction.note : ""
+	)
+	const [date, setDate] = useState<string>(
+		transaction ? String(transaction.date) : ""
+	)
+	const [category, setCategory] = useState<string>(
+		transaction ? transaction.category : "income"
+	)
+	const [errorMessage, setErrorMessage] = useState<string>("")
 	const history = useHistory()
 	const dispatch = useAppDispatch()
+
 	const addTransactionHandler = () => {
 		if (amount && date && category) {
 			if (type === "add") {
@@ -24,12 +39,24 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 						id: Date.now(),
 						amount: amount,
 						note: note,
-						date: new Date(date).getTime(),
+						date: date,
+						category: category === "income" ? "income" : "expense",
+					})
+				)
+			} else {
+				dispatch(
+					walletActions.editTransaction({
+						id: transaction!.id,
+						amount,
+						note,
+						date,
 						category: category === "income" ? "income" : "expense",
 					})
 				)
 			}
 			history.push("/wallet")
+		} else {
+			setErrorMessage("Please fill the required fields")
 		}
 	}
 
@@ -42,12 +69,15 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 					</label>
 					<input
 						value={amount}
+						placeholder='0'
 						onChange={(e) => setAmount(+e.target.value)}
 						type="number"
 						step="0.01"
 						min="0"
 						id="amount"
-						className="w-full p-2 outline-none border rounded mb-6"
+						className={`w-full p-2 outline-none border rounded mb-6 border-gray-300 ${
+							errorMessage && " border-red-500"
+						}`}
 					/>
 					<label htmlFor="note" className="block font-medium mb-2">
 						Note
@@ -55,7 +85,7 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 					<textarea
 						value={note}
 						onChange={(e) => setNote(e.target.value)}
-						className="w-full p-2 outline-none border rounded mb-6"
+						className={`w-full p-2 outline-none border rounded mb-6 border-gray-300`}
 						id="note"
 					/>
 					<label htmlFor="date" className="block font-medium mb-2">
@@ -66,7 +96,9 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 						onChange={(e) => setDate(e.target.value)}
 						id="date"
 						type="date"
-						className="w-full p-2 outline-none border rounded mb-6"
+						className={`w-full p-2 outline-none border rounded mb-6 border-gray-300 ${
+							errorMessage && " border-red-500"
+						}`}
 					/>
 					<label
 						htmlFor="category"
@@ -76,10 +108,15 @@ const Transaction: React.FC<ITransactionProps> = (props) => {
 					<select
 						value={category}
 						onChange={(e) => setCategory(e.target.value)}
-						className="w-full p-2 outline-none border rounded mb-6">
+						className={`w-full p-2 outline-none border rounded mb-6 border-gray-300 ${
+							errorMessage && " border-red-500"
+						}`}>
 						<option value="income">Income</option>
 						<option value="expense">Expense</option>
 					</select>
+					<small className="font-medium text-red-500">
+						{errorMessage}
+					</small>
 				</Card>
 				<div className="mt-8 flex justify-between">
 					<Button

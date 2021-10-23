@@ -4,14 +4,17 @@ import Card from "../UI/Card"
 interface ITransactionItemProps {
 	amount: number
 	note: string
-	date: number
+	date: string
 	category: "expense" | "income"
+	onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 const TransactionItem: React.FC<ITransactionItemProps> = (props) => {
 	const { amount, note, date, category } = props
 	const day = new Date(date).getDate()
 	return (
-		<Card className="flex justify-between items-center p-4">
+		<Card
+			className="flex justify-between items-center p-4"
+			onClick={props.onClick}>
 			<div className="flex items-center">
 				<h1 className="font-bold text-3xl mr-4">
 					{day < 10 && 0}

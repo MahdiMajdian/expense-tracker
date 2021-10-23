@@ -2,7 +2,7 @@ export interface IItem {
 	id: number
 	amount: number
 	note: string
-	date: number
+	date: string
 	category: "expense" | "income"
 }
 export interface IWallet {
